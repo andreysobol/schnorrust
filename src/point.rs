@@ -36,6 +36,13 @@ pub fn get_x(p: &Point) -> &BigUint {
     }
 }
 
+pub fn get_y(p: &Point) -> &BigUint {
+    match p {
+        Point::ExistingPoint {x, y} => y,
+        Point::Infinity => panic!("Point is Infinity")
+    }
+}
+
 pub fn sum_ponts(p1: Point, p2: Point) -> Point {
     if is_infinity(&p1){
         return p2
@@ -46,5 +53,5 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
     if get_x(&p1) == get_x(&p2){
         return p1
     }
-    p1
+    return p1
 }
