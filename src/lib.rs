@@ -1,6 +1,7 @@
 extern crate num_bigint;
 
 mod secp256k1;
+mod point;
 
 #[cfg(test)]
 mod tests {
