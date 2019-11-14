@@ -2,8 +2,8 @@
 name = "schnorrust"
 version = "0.1.0"
 authors = ["Andrey Sobol <baskerville@andreysobol.com>"]
-edition = "2019"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+num-bigint = "0.2.3"
