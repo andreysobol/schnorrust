@@ -50,8 +50,8 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
     if is_infinity(&p2){
         return p1
     }
-    if get_x(&p1) == get_x(&p2){
-        return p1
+    if (get_x(&p1) == get_x(&p2)) && (get_y(&p1) != get_y(&p2)) {
+        return Point::Infinity
     }
     return p1
 }
