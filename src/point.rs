@@ -22,7 +22,7 @@ pub fn equal_points(p1: Point, p2: Point) -> bool {
     }
 }
 
-pub fn is_infinity(p: Point) -> bool {
+pub fn is_infinity(p: &Point) -> bool {
     match p {
         Point::Infinity => true,
         _ => false,
@@ -30,5 +30,11 @@ pub fn is_infinity(p: Point) -> bool {
 }
 
 pub fn sum_ponts(p1: Point, p2: Point) -> Point {
+    if is_infinity(&p1){
+        return p2
+    }
+    if is_infinity(&p2){
+        return p1
+    }
     p1
 }
