@@ -29,6 +29,13 @@ pub fn is_infinity(p: &Point) -> bool {
     }
 }
 
+pub fn get_x(p: &Point) -> &BigUint {
+    match p {
+        Point::ExistingPoint {x, y} => x,
+        Point::Infinity => panic!("Point is Infinity")
+    }
+}
+
 pub fn sum_ponts(p1: Point, p2: Point) -> Point {
     if is_infinity(&p1){
         return p2
