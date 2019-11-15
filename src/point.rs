@@ -1,13 +1,13 @@
 extern crate num_bigint;
-use num_bigint::{BigUint, ToBigUint};
+use num_bigint::{BigInt, ToBigInt};
 
 use secp256k1::{secp256k1_params};
 
 pub enum Point{
     Infinity,
     ExistingPoint{
-        x: BigUint,
-        y: BigUint,
+        x: BigInt,
+        y: BigInt,
     }
 }
 
@@ -31,14 +31,14 @@ pub fn is_infinity(p: &Point) -> bool {
     }
 }
 
-pub fn get_x(p: &Point) -> &BigUint {
+pub fn get_x(p: &Point) -> &BigInt {
     match p {
         Point::ExistingPoint {x, y} => x,
         Point::Infinity => panic!("Point is Infinity")
     }
 }
 
-pub fn get_y(p: &Point) -> &BigUint {
+pub fn get_y(p: &Point) -> &BigInt {
     match p {
         Point::ExistingPoint {x, y} => y,
         Point::Infinity => panic!("Point is Infinity")
@@ -50,7 +50,7 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 
     let sparam = secp256k1_params();
     let p = sparam.p;
-    let pm2 = &p - 2.to_biguint().unwrap();
+    let pm2 = &p - 2.to_bigint().unwrap();
 
     if is_infinity(&p1){
         return p2
