@@ -2,10 +2,10 @@ extern crate num_bigint;
 use num_bigint::{BigUint};
 
 pub struct Secp256k1Params{
-    p: BigUint,
-    n: BigUint,
-    Gx: BigUint,
-    Gy: BigUint,
+    pub p: BigUint,
+    pub n: BigUint,
+    pub Gx: BigUint,
+    pub Gy: BigUint,
 }
 
 pub fn secp256k1_params() -> Secp256k1Params{
