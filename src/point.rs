@@ -11,7 +11,7 @@ pub enum Point{
     }
 }
 
-pub fn equal_points(p1: Point, p2: Point) -> bool {
+pub fn equal_points(p1: &Point, p2: &Point) -> bool {
     match p1 {
         Point::Infinity => match p2 {
             Point::Infinity => true,
@@ -62,8 +62,17 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
         return Point::Infinity
     }
 
-    let numerator = get_y(&p1) - get_y(&p2);
-    let denominator = (get_x(&p1) - get_x(&p2)).modpow(&pm2, &p);
+    let mut numerator;
+    let mut denominator;
+
+    if equal_points(&p1, &p2){
+        numerator = 3*get_x(&p1)*get_x(&p1);
+        denominator = get_y(&p1).modpow(&pm2, &p);
+    } else {
+        numerator = get_y(&p1) - get_y(&p2);
+        denominator = (get_x(&p1) - get_x(&p2)).modpow(&pm2, &p);
+    }
+
     let s = (numerator * denominator) % &p;
     let xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
     let yr = get_y(&p1) + s * (&xr - get_x(&p1));
