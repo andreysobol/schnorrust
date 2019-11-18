@@ -107,11 +107,17 @@ pub fn mul_points(p: Point, n: BigInt) -> Point {
         if (c>zero){
             res = sum_points(&res, &current);
         }
-        current = sum_points(&current, &current);
-        ni = ni >> 1;
+        if item == 255 {
+            return res;
+        } else {
+            current = sum_points(&current, &current);
+            ni = ni >> 1;
+        }
+
     }
 
-    res
+    panic!("Something went wrong in cycle on mul_points");
+    Point::Infinity
 }
 
 #[test]
