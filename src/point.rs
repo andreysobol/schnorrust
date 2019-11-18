@@ -89,7 +89,6 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 
 #[test]
 fn test_sum_ponits() {
-    assert_eq!(2 + 2, 4);
 
     let gx: BigInt = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
     let gy: BigInt = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
