@@ -95,6 +95,26 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
     return rp
 }
 
+pub fn mul_points(p: Point, n: BigInt) -> Point {
+    let one = 1.to_bigint().unwrap();
+    let zero = 0.to_bigint().unwrap();
+    let mut ni = n.clone();
+    let mut res = Point::Infinity;
+    let mut current = p;
+    //let mut pp = &mut p;
+
+    for item in 0..256 {
+        let c = &ni & &one;
+        if (c>zero){
+            res = sum_points(&res, &current);
+        }
+        current = sum_points(&current, &current);
+        ni = ni >> 1;
+    }
+
+    current
+}
+
 #[test]
 fn test_sum_points() {
 
