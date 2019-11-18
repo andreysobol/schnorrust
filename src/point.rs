@@ -46,7 +46,7 @@ pub fn get_y(p: &Point) -> &BigInt {
 }
 
 //https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law
-pub fn sum_ponts(p1: Point, p2: Point) -> Point {
+pub fn sum_points(p1: Point, p2: Point) -> Point {
 
     let sparam = secp256k1_params();
     let p = sparam.p;
@@ -86,7 +86,7 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 }
 
 #[test]
-fn test_sum_ponits() {
+fn test_sum_points() {
 
     let gx: BigInt = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
     let gy: BigInt = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
@@ -101,7 +101,7 @@ fn test_sum_ponits() {
         y: gy,
     };
 
-    let res = sum_ponts(p1, p2);
+    let res = sum_points(p1, p2);
 
     let expectx = BigInt::parse_bytes(b"C6047F9441ED7D6D3045406E95C07CD85C778E4B8CEF3CA7ABAC09B95C709EE5", 16).unwrap();
     let expecty = BigInt::parse_bytes(b"1AE168FEA63DC339A3C58419466CEAEEF7F632653266D0E1236431A950CFE52A", 16).unwrap();
