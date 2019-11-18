@@ -83,3 +83,8 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 
     return rp
 }
+
+#[test]
+fn it_works() {
+    assert_eq!(2 + 2, 4);
+}
