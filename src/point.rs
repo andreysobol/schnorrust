@@ -67,13 +67,16 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 
     if equal_points(&p1, &p2){
         numerator = 3*get_x(&p1)*get_x(&p1);
-        denominator = get_y(&p1).modpow(&pm2, &p);
+        denominator = (get_y(&p1)+get_y(&p1)).modpow(&pm2, &p);
     } else {
         numerator = get_y(&p1) - get_y(&p2);
         denominator = (get_x(&p1) - get_x(&p2)).modpow(&pm2, &p);
     }
 
     let s = (numerator * denominator) % &p;
+
+    let ds = s.to_str_radix(16);
+
     let xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
     let yr = get_y(&p1) + s * (&xr - get_x(&p1));
     let rp = Point::ExistingPoint{
@@ -85,6 +88,26 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 }
 
 #[test]
-fn it_works() {
+fn test_sum_ponits() {
     assert_eq!(2 + 2, 4);
+
+    let gx: BigInt = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
+    let gy: BigInt = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
+
+    let p1 = Point::ExistingPoint{
+        x: gx.clone(),
+        y: gy.clone(),
+    };
+
+    let p2 = Point::ExistingPoint{
+        x: gx,
+        y: gy,
+    };
+
+    let res = sum_ponts(p1, p2);
+
+    let expectx = BigInt::parse_bytes(b"C6047F9441ED7D6D3045406E95C07CD85C778E4B8CEF3CA7ABAC09B95C709EE5", 16).unwrap();
+    let expecty = BigInt::parse_bytes(b"1AE168FEA63DC339A3C58419466CEAEEF7F632653266D0E1236431A950CFE52A", 16).unwrap();
+
+    assert_eq!(&expectx, get_x(&res));
 }
