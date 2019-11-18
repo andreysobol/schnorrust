@@ -75,8 +75,6 @@ pub fn sum_ponts(p1: Point, p2: Point) -> Point {
 
     let s = (numerator * denominator) % &p;
 
-    let ds = s.to_str_radix(16);
-
     let xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
     let yr = get_y(&p1) + s * (&xr - get_x(&p1));
     let rp = Point::ExistingPoint{
