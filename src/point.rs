@@ -101,7 +101,6 @@ pub fn mul_points(p: Point, n: BigInt) -> Point {
     let mut ni = n.clone();
     let mut res = Point::Infinity;
     let mut current = p;
-    //let mut pp = &mut p;
 
     for item in 0..256 {
         let c = &ni & &one;
