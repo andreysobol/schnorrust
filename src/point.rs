@@ -111,7 +111,7 @@ pub fn mul_points(p: Point, n: BigInt) -> Point {
         ni = ni >> 1;
     }
 
-    current
+    res
 }
 
 #[test]
