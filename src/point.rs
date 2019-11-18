@@ -46,17 +46,27 @@ pub fn get_y(p: &Point) -> &BigInt {
 }
 
 //https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law
-pub fn sum_points(p1: Point, p2: Point) -> Point {
+pub fn sum_points(p1: &Point, p2: &Point) -> Point {
 
     let sparam = secp256k1_params();
     let p = sparam.p;
     let pm2 = &p - 2.to_bigint().unwrap();
 
+    if is_infinity(&p1) && is_infinity(&p1){
+        return Point::Infinity
+    }
+
     if is_infinity(&p1){
-        return p2
+        return match p2 {
+            Point::ExistingPoint {x, y} => Point::ExistingPoint {x:x.clone(), y:y.clone()},
+            Point::Infinity => panic!("Point is Infinity")
+        }
     }
     if is_infinity(&p2){
-        return p1
+        return match p1 {
+            Point::ExistingPoint {x, y} => Point::ExistingPoint {x:x.clone(), y:y.clone()},
+            Point::Infinity => panic!("Point is Infinity")
+        }
     }
     if (get_x(&p1) == get_x(&p2)) && (get_y(&p1) != get_y(&p2)) {
         return Point::Infinity
@@ -101,7 +111,7 @@ fn test_sum_points() {
         y: gy,
     };
 
-    let res = sum_points(p1, p2);
+    let res = sum_points(&p1, &p2);
 
     let expectx = BigInt::parse_bytes(b"C6047F9441ED7D6D3045406E95C07CD85C778E4B8CEF3CA7ABAC09B95C709EE5", 16).unwrap();
     let expecty = BigInt::parse_bytes(b"1AE168FEA63DC339A3C58419466CEAEEF7F632653266D0E1236431A950CFE52A", 16).unwrap();
