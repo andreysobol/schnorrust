@@ -52,7 +52,7 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
     let p = sparam.p;
     let pm2 = &p - 2.to_bigint().unwrap();
 
-    if is_infinity(&p1) && is_infinity(&p1){
+    if is_infinity(&p1) && is_infinity(&p2){
         return Point::Infinity
     }
 
@@ -142,4 +142,24 @@ fn test_sum_points() {
     let expecty = BigInt::parse_bytes(b"1AE168FEA63DC339A3C58419466CEAEEF7F632653266D0E1236431A950CFE52A", 16).unwrap();
 
     assert_eq!(&expectx, get_x(&res));
+}
+
+#[test]
+fn test_mul_points() {
+    let px = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
+    let py = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
+
+    let p = Point::ExistingPoint{
+        x: px,
+        y: py,
+    };
+
+    let expectx = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
+    let expecty = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
+
+    let res = mul_points(p, 1.to_bigint().unwrap());
+
+    assert_eq!(&expectx, get_x(&res));
+    assert_eq!(&expecty, get_y(&res));
+
 }
