@@ -7,3 +7,4 @@ authors = ["Andrey Sobol <baskerville@andreysobol.com>"]
 
 [dependencies]
 num-bigint = "0.2.3"
+easy-hash = "0.1.0"
