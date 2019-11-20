@@ -2,7 +2,7 @@ extern crate num_bigint;
 
 use num_bigint::{BigInt, ToBigInt};
 use secp256k1::{secp256k1_params};
-use point::{mul_points, Point, is_infinity};
+use point::{mul_points, Point, is_infinity, square};
 
 pub fn sign(secret: BigInt, message: [u8; 32]){
     let sparam = secp256k1_params();
@@ -16,7 +16,11 @@ pub fn sign(secret: BigInt, message: [u8; 32]){
         panic!("The secret not in range 1..n-1.");
     }
 
-    let p = mul_points(g, secret);
+    let p = mul_points(g, &secret);
     
-    //realsecret = 
+    let realsecret = if square(&p){
+        secret
+    } else {
+        n - secret
+    };
 }
