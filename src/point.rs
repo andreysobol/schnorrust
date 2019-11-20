@@ -45,6 +45,25 @@ pub fn get_y(p: &Point) -> &BigInt {
     }
 }
 
+pub fn square(point: &Point) -> bool {
+    //if not is_infinity(P) and
+    if(is_infinity(point)){
+        return false;
+    }
+
+    let sparam = secp256k1_params();
+    let p = sparam.p;
+
+    let one = 1.to_bigint().unwrap();
+    let two = 2.to_bigint().unwrap();
+
+    let y = get_y(point);
+
+    let h = (&p - &one) / two;
+
+    return y.modpow(&h, &p) == one;
+}
+
 //https://en.wikipedia.org/wiki/Elliptic_curve#The_group_law
 pub fn sum_points(p1: &Point, p2: &Point) -> Point {
 
