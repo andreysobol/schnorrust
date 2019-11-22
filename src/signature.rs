@@ -17,4 +17,11 @@ impl Signature {
         sv.resize_with(32, || { 0 });
         sv
     }
+
+    fn to_bytes(&self) -> Vec<u8>{
+        let mut res = Vec::new();
+        res.extend(self.r_to_bytes());
+        res.extend(self.s_to_bytes());
+        res
+    }
 }
