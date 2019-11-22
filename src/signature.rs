@@ -7,10 +7,14 @@ pub struct Signature {
 
 impl Signature {
     fn r_to_bytes(&self) -> Vec<u8>{
-        self.r.to_bytes_be().1
+        let mut rv = self.r.to_bytes_be().1;
+        rv.resize_with(32, || { 0 });
+        rv
     }
 
     fn s_to_bytes(&self) -> Vec<u8>{
-        self.r.to_bytes_be().1
+        let mut sv = self.r.to_bytes_be().1;
+        sv.resize_with(32, || { 0 });
+        sv
     }
 }
