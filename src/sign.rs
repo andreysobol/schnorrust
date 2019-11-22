@@ -4,11 +4,7 @@ use num_bigint::{BigInt, ToBigInt, Sign};
 use secp256k1::{secp256k1_params};
 use point::{mul_points, Point, is_infinity, square, get_x};
 use message_hash::message_hash_with_tag;
-
-pub struct Signature {
-    r: BigInt,
-    s: BigInt,
-}
+use signature::Signature;
 
 pub fn sign(secret: BigInt, message: [u8; 32]) -> Signature {
     let sparam = secp256k1_params();

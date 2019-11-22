@@ -4,6 +4,7 @@ mod secp256k1;
 mod point;
 mod message_hash;
 mod sign;
+mod signature;
 
 #[cfg(test)]
 mod tests {
