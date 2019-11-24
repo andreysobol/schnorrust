@@ -5,6 +5,7 @@ mod point;
 mod message_hash;
 mod sign;
 mod signature;
+mod verify;
 
 #[cfg(test)]
 mod tests {
