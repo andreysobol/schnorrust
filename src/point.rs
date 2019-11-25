@@ -13,6 +13,13 @@ pub enum Point{
 
 impl Point{
     pub fn from_x(x: BigInt) -> Point{
+        let sparam = secp256k1_params();
+        let p = sparam.p;
+
+        if x >= p {
+            return Point::Infinity
+        }
+        
         Point::Infinity
     }
 }
