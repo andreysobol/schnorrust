@@ -16,14 +16,17 @@ impl Point{
         let sparam = secp256k1_params();
         let p = sparam.p;
 
+        let one = 1.to_bigint().unwrap();
         let three = 3.to_bigint().unwrap();
+        let four = 4.to_bigint().unwrap();
         let seven = 7.to_bigint().unwrap();
 
         if x >= p {
             return Point::Infinity
         }
         
-        let square = (x.modpow(&three, &p) + &seven) % p;
+        let square = (x.modpow(&three, &p) + &seven) % &p;
+        let y = square.modpow(&((&p + &one) / &four), &p);
 
         Point::Infinity
     }
