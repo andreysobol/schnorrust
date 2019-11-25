@@ -11,6 +11,12 @@ pub enum Point{
     }
 }
 
+impl Point{
+    pub fn from_x(x: BigInt) -> Point{
+        Point::Infinity
+    }
+}
+
 pub fn equal_points(p1: &Point, p2: &Point) -> bool {
     match p1 {
         Point::Infinity => match p2 {
