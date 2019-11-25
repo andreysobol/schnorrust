@@ -17,6 +17,7 @@ impl Point{
         let p = sparam.p;
 
         let one = 1.to_bigint().unwrap();
+        let two = 2.to_bigint().unwrap();
         let three = 3.to_bigint().unwrap();
         let four = 4.to_bigint().unwrap();
         let seven = 7.to_bigint().unwrap();
@@ -27,6 +28,10 @@ impl Point{
         
         let square = (x.modpow(&three, &p) + &seven) % &p;
         let y = square.modpow(&((&p + &one) / &four), &p);
+
+        if y.modpow(&two, &p) != square {
+            return Point::Infinity;
+        }
 
         Point::Infinity
     }
