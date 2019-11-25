@@ -33,7 +33,10 @@ impl Point{
             return Point::Infinity;
         }
 
-        Point::Infinity
+        Point::ExistingPoint{
+            x: x,
+            y: y,
+        }
     }
 }
 
