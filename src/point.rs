@@ -75,7 +75,6 @@ pub fn get_y(p: &Point) -> &BigInt {
 }
 
 pub fn square(point: &Point) -> bool {
-    //if not is_infinity(P) and
     if(is_infinity(point)){
         return false;
     }
