@@ -1,6 +1,6 @@
 # schnorrust
 
-This is experimental implementation of schnorr signatures written in rust
+This is experimental implementation of schnorr signatures over secp256k1 curve written in rust
 
 # Specification
 
