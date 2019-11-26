@@ -1,7 +1,7 @@
 use num_bigint::{BigInt, ToBigInt, Sign};
 
 use signature::Signature;
-use point::{Point, equal_points};
+use point::{Point, equal_points, mul_points, sum_points, square, is_infinity, get_x};
 use secp256k1::{secp256k1_params};
 use message_hash::message_hash_with_tag;
 
@@ -10,6 +10,10 @@ pub fn verify(public: BigInt, message: [u8; 32], signature: Signature) -> bool {
     let sparam = secp256k1_params();
     let p = sparam.p;
     let n = sparam.n;
+    let g = Point::ExistingPoint{
+        x: sparam.Gx,
+        y: sparam.Gy,
+    };
 
     let point = Point::from_x(public.clone());
 
@@ -38,5 +42,17 @@ pub fn verify(public: BigInt, message: [u8; 32], signature: Signature) -> bool {
     let hashed_bigint = BigInt::from_bytes_be(Sign::Plus, &hashed);
     let e = hashed_bigint % &n;
 
-    true
+    let gs = mul_points(g, &signature.s);
+    let pne = mul_points(point, &(n - e));
+    let r = sum_points(&gs, &pne);
+
+    if is_infinity(&r){
+        return false;
+    }
+
+    if square(&r){
+        return false;
+    }
+
+    get_x(&r) == &(signature.r)
 }
