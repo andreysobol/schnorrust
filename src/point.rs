@@ -1,3 +1,5 @@
+use std::ops::Add;
+
 extern crate num_bigint;
 use num_bigint::{BigInt, ToBigInt};
 
@@ -37,6 +39,14 @@ impl Point{
             x: x,
             y: y,
         }
+    }
+}
+
+impl Add for Point{
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        sum_points(&self, &other)
     }
 }
 
