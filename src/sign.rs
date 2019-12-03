@@ -15,7 +15,7 @@ pub fn sign(secret: BigInt, message: [u8; 32]) -> Signature {
     };
     let zero = 0.to_bigint().unwrap();
 
-    if (zero < secret) && (secret < n) { 
+    if !((zero < secret) && (secret < n)) {
         panic!("The secret not in range 1..n-1.");
     }
 
