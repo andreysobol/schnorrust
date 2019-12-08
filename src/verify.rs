@@ -56,3 +56,8 @@ pub fn verify(public: BigInt, message: [u8; 32], signature: Signature) -> bool {
 
     get_x(&r) == &(signature.r)
 }
+
+#[test]
+fn test_sign_vector1() {
+    assert_eq!(1, 1);
+}
