@@ -41,6 +41,25 @@ impl Point{
             y: y,
         }
     }
+
+    pub fn to_bytes(&self) -> Vec<u8> {
+        match self {
+            Point::Infinity => [].to_vec(),
+            Point::ExistingPoint {x:x, y:y} => {
+
+                let mut xv = x.to_bytes_be().1;
+                xv.resize_with(32, || { 0 });
+
+                let mut yv = y.to_bytes_be().1;
+                yv.resize_with(32, || { 0 });
+
+                let mut res = Vec::new();
+                res.extend(xv);
+                res.extend(yv);
+                res
+            },
+        }
+    }
 }
 
 impl Add for Point{
