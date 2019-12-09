@@ -258,3 +258,24 @@ fn test_mul_points() {
     assert_eq!(&expecty, get_y(&res));
 
 }
+
+#[test]
+fn test_mul_points2() {
+    let px = BigInt::parse_bytes(b"79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798", 16).unwrap();
+    let py = BigInt::parse_bytes(b"483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16).unwrap();
+
+    let j = BigInt::parse_bytes(b"B7E151628AED2A6ABF7158809CF4F3C762E7160F38B4DA56A784D9045190CFEF", 16).unwrap();
+
+    let p = Point::ExistingPoint{
+        x: px,
+        y: py,
+    };
+
+    let expectx = BigInt::parse_bytes(b"DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659", 16).unwrap();
+    let expecty = BigInt::parse_bytes(b"2CE19B946C4EE58546F5251D441A065EA50735606985E5B228788BEC4E582898", 16).unwrap();
+
+    let res = mul_points(p, &j);
+
+    assert_eq!(&expectx, get_x(&res));
+    assert_eq!(&expecty, get_y(&res));
+}
