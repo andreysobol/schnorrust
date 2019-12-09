@@ -151,11 +151,20 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
 
     let s = (numerator * denominator) % &p;
 
-    let xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
-    let yr = get_y(&p1) + s * (&xr - get_x(&p1));
+    let mut xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
+    let mut yr = (&s * (get_x(&p1) - &xr) - get_y(&p1)) % &p;
+
+    if(yr<0.to_bigint().unwrap()){
+        yr = &p + yr;
+    }
+
+    if(xr<0.to_bigint().unwrap()){
+        xr = &p + xr;
+    }
+
     let rp = Point::ExistingPoint{
         x: xr,
-        y: (-yr),
+        y: yr,
     };
 
     return rp
@@ -208,6 +217,7 @@ fn test_sum_points() {
     let expecty = BigInt::parse_bytes(b"1AE168FEA63DC339A3C58419466CEAEEF7F632653266D0E1236431A950CFE52A", 16).unwrap();
 
     assert_eq!(&expectx, get_x(&res));
+    assert_eq!(&expecty, get_y(&res));
 }
 
 #[test]
