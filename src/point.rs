@@ -6,6 +6,8 @@ use num_bigint::{BigInt, ToBigInt};
 
 use secp256k1::{secp256k1_params};
 
+use tool::unsigned_modulo;
+
 pub enum Point{
     Infinity,
     ExistingPoint{
@@ -171,11 +173,13 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
     let s = (numerator * denominator) % &p;
 
     let mut xr = (&s * &s - get_x(&p1) - get_x(&p2)) % &p;
-    let mut yr = (&s * (get_x(&p1) - &xr) - get_y(&p1)) % &p;
+    //let mut yr = (&s * (get_x(&p1) - &xr) - get_y(&p1)) % &p;
 
-    if(yr<0.to_bigint().unwrap()){
-        yr = &p + yr;
-    }
+    //if(yr<0.to_bigint().unwrap()){
+    //    yr = &p + yr;
+    //}
+    let yr = (&s * (get_x(&p1) - &xr) - get_y(&p1));
+    let yrp = unsigned_modulo(&yr, &p);
 
     if(xr<0.to_bigint().unwrap()){
         xr = &p + xr;
@@ -183,7 +187,7 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
 
     let rp = Point::ExistingPoint{
         x: xr,
-        y: yr,
+        y: yrp,
     };
 
     return rp
