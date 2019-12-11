@@ -175,12 +175,12 @@ pub fn sum_points(p1: &Point, p2: &Point) -> Point {
     let mut xr = (&s * &s - get_x(&p1) - get_x(&p2));
     xr = unsigned_modulo(&xr, &p);
 
-    let yr = (&s * (get_x(&p1) - &xr) - get_y(&p1));
-    let yrp = unsigned_modulo(&yr, &p);
+    let mut yr = (&s * (get_x(&p1) - &xr) - get_y(&p1));
+    yr = unsigned_modulo(&yr, &p);
 
     let rp = Point::ExistingPoint{
         x: xr,
-        y: yrp,
+        y: yr,
     };
 
     return rp
