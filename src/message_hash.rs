@@ -2,7 +2,7 @@ extern crate easy_hash;
 
 use self::easy_hash::{Sha256, Hasher, HashResult};
 
-static TAG:&[u8] = b"BIPSchnorr";
+static TAG:&[u8] = b"BIPSchnorrDerive";
 
 pub fn message_hash_with_tag(msg: &[u8]) -> [u8; 32]{
     let th = Sha256::hash(TAG);
